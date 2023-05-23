@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SportsQuiz</string>
+    <string name="let_s_start_playing">Let\'s start playing!</string>
+    <string name="your_total_score">Your total score:</string>
+    <string name="text_total_score">0</string>
+    <string name="play">play</string>
+    <string name="buy_wallpapers">buy wallpapers</string>
+    <string name="choose_difficulty">Choose difficulty</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="mainBackground" format="color" />
+    <attr name="whiteColor" format="color" />
+    <attr name="pointScoreColor" format="color" />
+    <attr name="totalPointScoreColor" format="color" />
+    <attr name="blueButtonColor" format="color" />
+    <attr name="questionColor" format="color" />
+    <attr name="transparentColor" format="color" />
+
+</resources>
