@@ -1,9 +1,13 @@
 package com.example.sportsquiz.core.questions
 
-class QuestionsRepository() {
+class QuestionsRepository(){
 
-    suspend fun getQuestions(): Quiz{
+    fun getQuestions(): Quiz{
         return Quiz()
+    }
+
+    fun getAnswers(): RightAnswers{
+        return  RightAnswers()
     }
 
 }

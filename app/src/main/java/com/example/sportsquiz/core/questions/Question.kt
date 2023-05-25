@@ -1,11 +1,11 @@
 package com.example.sportsquiz.core.questions
 
-data class Questions(
-    val question: List <Pair<String, Answers>>
+data class Question(
+    val question: List<Pair<String, Answers>>,
 )
 
 data class Quiz(
-    val easy: Questions? = Questions(
+    val easy: Question = Question(
         listOf(
             Pair(
                 "Which US superstar said ‘I’ve never lost a game I just ran out of time’?",
@@ -72,7 +72,7 @@ data class Quiz(
             )
         )
     ),
-    val medium: Questions? = Questions(
+    val medium: Question = Question(
         listOf(
             Pair(
                 "Of all the fighting sports below, which sport wasn’t practised by Bruce Lee?",
@@ -139,7 +139,7 @@ data class Quiz(
             ),
         )
     ),
-    val hard: Questions? = Questions(
+    val hard: Question = Question(
         listOf(
             Pair(
                 "Where did the term “billiard” originated from?",
@@ -205,7 +205,7 @@ data class Quiz(
                 )
             ),
         )
-    )
+    ),
 )
 
 data class Answers(
@@ -242,6 +242,6 @@ data class RightAnswers(
         "4 Years",
         "Swimming",
         "Table Tennis",
-    )
+    ),
 )
 

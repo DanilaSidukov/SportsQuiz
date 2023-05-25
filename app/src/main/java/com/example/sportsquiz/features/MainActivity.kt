@@ -1,17 +1,22 @@
 package com.example.sportsquiz.features
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.sportsquiz.R
-import org.w3c.dom.Text
+import com.example.sportsquiz.core.score.ScoreViewModel
+import com.example.sportsquiz.core.score.Settings
+import com.example.sportsquiz.core.score.Settings.Companion.DIFFICULT_KEY
+import com.example.sportsquiz.core.di.ScoreViewModelFactory
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,13 +28,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var easyButton: TextView
     private lateinit var mediumButton: TextView
     private lateinit var hardButton: TextView
+    private lateinit var scoreValue: TextView
 
+    lateinit var scoreViewModel: ScoreViewModel
 
-    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        scoreViewModel = ViewModelProvider(this, ScoreViewModelFactory())[ScoreViewModel::class.java]
+
+        scoreValue = findViewById(R.id.score)
         buttonBuyWallpapers = findViewById(R.id.button_buy_wallpapers)
         buttonBuyWallpapers.setOnClickListener {
             startActivity(
@@ -40,10 +49,20 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        lifecycleScope.launch {
+            scoreViewModel.score.collect {
+                try {
+                    scoreValue.text = it.scoreValue.toString()
+                } catch (e: NullPointerException) {
+
+                }
+            }
+        }
+
         chooseDifficultyDialogView =
             LayoutInflater.from(this).inflate(R.layout.dialog_choose_difficult, null, false)
-        val dialog = AlertDialog.Builder(this)
-            .setView(chooseDifficultyDialogView)
+        chooseDifficultyDialog =
+            AlertDialog.Builder(this).setView(chooseDifficultyDialogView).create()
 
         easyButton = chooseDifficultyDialogView.findViewById(R.id.text_easy)
         mediumButton = chooseDifficultyDialogView.findViewById(R.id.text_medium)
@@ -51,39 +70,29 @@ class MainActivity : AppCompatActivity() {
 
         buttonPlay = findViewById(R.id.button_play)
         buttonPlay.setOnClickListener {
-
-            if (chooseDifficultyDialogView.parent != null){
-                (chooseDifficultyDialogView.parent as ViewGroup).removeView(chooseDifficultyDialogView)
-            }
-
-            chooseDifficultyDialog = dialog.show()
+            chooseDifficultyDialog.show()
             easyButton.setOnClickListener {
-                startActivity(
-                    Intent(
-                        this,
-                        GameActivity::class.java
-                    )
-                )
+                startGameActivity(Settings.DIFFICULTY.EASY)
             }
             mediumButton.setOnClickListener {
-                startActivity(
-                    Intent(
-                        this,
-                        GameActivity::class.java
-                    )
-                )
+                startGameActivity(Settings.DIFFICULTY.MEDIUM)
             }
             hardButton.setOnClickListener {
-                startActivity(
-                    Intent(
-                        this,
-                        GameActivity::class.java
-                    )
-                )
+                startGameActivity(Settings.DIFFICULTY.HARD)
             }
-
         }
+    }
 
+    private fun startGameActivity(difficulty: Settings.DIFFICULTY) {
+        startActivity(
+            Intent(
+                this,
+                GameActivity::class.java
+            ).apply {
+                putExtra(DIFFICULT_KEY, difficulty)
+            }
+        )
+        chooseDifficultyDialog.dismiss()
     }
 
 }

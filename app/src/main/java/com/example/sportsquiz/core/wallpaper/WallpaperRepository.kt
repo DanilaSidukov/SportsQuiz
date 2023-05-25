@@ -1,15 +1,22 @@
 package com.example.sportsquiz.core.wallpaper
 
+import com.example.sportsquiz.core.db.EntityWallpaper
+import com.example.sportsquiz.core.db.WallpaperDao
+import kotlinx.coroutines.flow.onStart
+
+
 class WallpaperRepository(
-    //val wallpaperDao: WallpaperDao
-    private val wallpaperSource: WallpaperSource
+    private val wallpaperDao: WallpaperDao,
+    private val wallpaperSource: WallpaperSource,
 ) {
 
-    //suspend fun getAllWallpapers() = wallpaperDao.getAll()
+    fun getWallpaperStat() = wallpaperDao.getWallpaperStat().onStart {
+        emit(getWallpapers())
+    }
 
-    //suspend fun changeWallpaperItem(item: EntityWallpaper) = wallpaperDao.changeData(item)
+    suspend fun changeWallpaperItem(item: EntityWallpaper) = wallpaperDao.changeData(item)
 
-    suspend fun getWallpapers(): List<Wallpaper>{
+    fun getWallpapers(): List<EntityWallpaper> {
         return wallpaperSource.getAllWallpapers()
     }
 

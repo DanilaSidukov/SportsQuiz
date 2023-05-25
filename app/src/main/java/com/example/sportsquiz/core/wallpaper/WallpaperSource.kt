@@ -2,62 +2,62 @@ package com.example.sportsquiz.core.wallpaper
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import com.example.sportsquiz.core.db.EntityWallpaper
 
-class WallpaperSource(
-    private val context: Context
-) {
-
-    val assetsManager = context.resources.assets
-
-    fun getAllWallpapers(): List<Wallpaper>{
-
+class WallpaperSource() {
+    fun getAllWallpapers(): List<EntityWallpaper>  {
         return listOf(
-            Wallpaper(
+            EntityWallpaper(
                 "one",
-                getPath("one_background.jpg")
+                "one_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "two",
-                getPath("two_background.jpg")
+                "two_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "three",
-                getPath("three_background.jpg")
+                "three_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "four",
-                getPath("four_background.jpg")
+                "four_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "five",
-                getPath("five_background.jpg")
+                "five_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "six",
-                getPath("six_background.jpg")
+                "six_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "seven",
-                getPath("seven_background.jpg")
+                "seven_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "eight",
-                getPath("eight_background.jpg")
+                "eight_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "nine",
-                getPath("nine_background.jpg")
+                "nine_background.jpg",
+                false
             ),
-            Wallpaper(
+            EntityWallpaper(
                 "ten",
-                getPath("ten_background.jpg")
+                "ten_background.jpg",
+                false
             )
         )
-    }
-
-    fun getPath(path: String): Drawable{
-        val inputStream = assetsManager.open(path)
-        return Drawable.createFromStream(inputStream, null)!!
     }
 
 }
