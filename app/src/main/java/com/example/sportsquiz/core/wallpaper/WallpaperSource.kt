@@ -1,7 +1,5 @@
 package com.example.sportsquiz.core.wallpaper
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import com.example.sportsquiz.core.db.EntityWallpaper
 
 class WallpaperSource() {

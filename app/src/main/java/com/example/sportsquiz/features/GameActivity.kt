@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.sportsquiz.R
-import com.example.sportsquiz.core.score.Settings
-import com.example.sportsquiz.core.score.Settings.Companion.DIFFICULT_KEY
 import com.example.sportsquiz.core.di.QuestionViewModelFactory
 import com.example.sportsquiz.core.questions.QuestionsViewModel
+import com.example.sportsquiz.core.score.Settings
+import com.example.sportsquiz.core.score.Settings.Companion.DIFFICULT_KEY
 import kotlinx.coroutines.launch
 
 

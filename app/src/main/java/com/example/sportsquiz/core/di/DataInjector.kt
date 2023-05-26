@@ -2,11 +2,11 @@ package com.example.sportsquiz.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.sportsquiz.core.score.ScoreRepository
 import com.example.sportsquiz.core.db.DatabaseScore
 import com.example.sportsquiz.core.db.ScoreDao
 import com.example.sportsquiz.core.db.WallpaperDao
 import com.example.sportsquiz.core.questions.QuestionsRepository
+import com.example.sportsquiz.core.score.ScoreRepository
 import com.example.sportsquiz.core.wallpaper.WallpaperRepository
 import com.example.sportsquiz.core.wallpaper.WallpaperSource
 

@@ -10,9 +10,9 @@ class WallpaperRepository(
     private val wallpaperSource: WallpaperSource,
 ) {
 
-    fun getWallpaperStat() = wallpaperDao.getWallpaperStat().onStart {
-        emit(getWallpapers())
-    }
+    fun getWallpaperStat() = wallpaperDao.getWallpaperStat()
+
+    suspend fun checkIsEmpty() = wallpaperDao.checkIsEmpty()
 
     suspend fun changeWallpaperItem(item: EntityWallpaper) = wallpaperDao.changeData(item)
 

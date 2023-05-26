@@ -2,9 +2,9 @@ package com.example.sportsquiz.core.questions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sportsquiz.core.db.EntityScore
 import com.example.sportsquiz.core.score.ScoreRepository
 import com.example.sportsquiz.core.score.Settings
-import com.example.sportsquiz.core.db.EntityScore
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay

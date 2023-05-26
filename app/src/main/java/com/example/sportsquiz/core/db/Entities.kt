@@ -1,10 +1,8 @@
 package com.example.sportsquiz.core.db
 
-import android.graphics.drawable.Drawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class EntityWallpaper(

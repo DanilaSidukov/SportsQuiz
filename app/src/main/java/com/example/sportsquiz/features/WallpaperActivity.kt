@@ -13,11 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsquiz.R
-import com.example.sportsquiz.core.score.ScoreViewModel
 import com.example.sportsquiz.core.db.EntityWallpaper
 import com.example.sportsquiz.core.di.ScoreViewModelFactory
 import com.example.sportsquiz.core.di.WallpaperViewModelFactory
-import com.example.sportsquiz.core.wallpaper.*
+import com.example.sportsquiz.core.score.ScoreViewModel
+import com.example.sportsquiz.core.wallpaper.GridLayoutItemDecoration
+import com.example.sportsquiz.core.wallpaper.OnWallpaperItemClicked
+import com.example.sportsquiz.core.wallpaper.WallpaperAdapter
+import com.example.sportsquiz.core.wallpaper.WallpaperViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -53,7 +56,7 @@ class WallpaperActivity: AppCompatActivity(), OnWallpaperItemClicked {
         }
 
         lifecycleScope.launch {
-            wallpaperViewModel.wallpaperList.collectLatest { list ->
+            wallpaperViewModel.wallpaperList.collectLatest{ list ->
                 if (list.isEmpty()) return@collectLatest
                 else {
                     listOfWallpapers = list
@@ -73,9 +76,11 @@ class WallpaperActivity: AppCompatActivity(), OnWallpaperItemClicked {
                         this@WallpaperActivity, "You have already purchased this wallpaper", Toast.LENGTH_SHORT).show()
                     else {
                         wallpaperViewModel.spendScore(entityWallpaper)
-                        wallpaperViewModel.isSuccessful.collect{
-                            if (!it) Toast.makeText(
-                                this@WallpaperActivity, "Not enough score", Toast.LENGTH_SHORT).show()
+                        wallpaperViewModel.isSuccessful.collectLatest {
+                            if (it != null && !it) {
+                                Toast.makeText(
+                                    this@WallpaperActivity, "Not enough score", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -98,15 +103,22 @@ class WallpaperActivity: AppCompatActivity(), OnWallpaperItemClicked {
             .setMessage("Are you sure you want to set background with this wallpaper?")
             .setPositiveButton(android.R.string.yes
             ) { dialog, which ->
-                if (wallpaperItem.isPurchased) {
-                    val wallpaperManager = WallpaperManager.getInstance(this@WallpaperActivity)
-                    wallpaperManager.setBitmap(setDeviceWallpaper(wallpaperItem.drawable))
-                } else Toast.makeText(
-                    this@WallpaperActivity, "You didn't buy this wallpaper", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch {
+                    if (wallpaperItem.isPurchased) {
+                        val wallpaperManager = WallpaperManager.getInstance(this@WallpaperActivity)
+                        wallpaperManager.setBitmap(setDeviceWallpaper(wallpaperItem.drawable))
+                    } else Toast.makeText(
+                        this@WallpaperActivity, "You didn't buy this wallpaper", Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton(android.R.string.no, null)
             .setIcon(android.R.drawable.ic_dialog_info)
             .show()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
     }
 
 }

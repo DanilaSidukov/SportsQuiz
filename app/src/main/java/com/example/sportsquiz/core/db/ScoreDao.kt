@@ -1,9 +1,6 @@
 package com.example.sportsquiz.core.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,8 +9,11 @@ interface WallpaperDao {
     @Query("SELECT * from entitywallpaper")
     fun getWallpaperStat(): Flow<List<EntityWallpaper>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun changeData(itemData: EntityWallpaper)
+
+    @Query("SELECT (SELECT COUNT(*) FROM entitywallpaper) == 0")
+    suspend fun checkIsEmpty(): Boolean
 
 }
 

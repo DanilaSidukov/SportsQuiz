@@ -3,7 +3,8 @@ package com.example.sportsquiz.core.score
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sportsquiz.core.db.EntityScore
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 class ScoreViewModel(
